@@ -60,6 +60,7 @@ class Less::Values::Test < Minitest::Test
 
   def test_allowing_nil
     AgelessPerson.new(first_name: 'Eugen', last_name: 'Minciu', single: false)
+    pass
   end
 
   def test_with_default
