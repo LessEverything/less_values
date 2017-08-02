@@ -25,14 +25,16 @@ module Less
       end
 
       def parse(value)
+        is_blank = ['', nil].member?(value)
+
         if type == Integer
-          return nil if value == ''
+          return nil if is_blank
           value.to_i
         elsif type == Float
-          return nil if value == ''
+          return nil if is_blank
           value.to_f
         elsif type == BigDecimal
-          return nil if value == ''
+          return nil if is_blank
           value.to_d
         elsif type == Less::Bool
           ['1', 'true', true].member?(value)
