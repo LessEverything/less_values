@@ -1,6 +1,7 @@
 module Less
   module Values
-    class WrongTypeError < StandardError; end
-    class MissingAttributeError < StandardError; end
+    class ValueError < StandardError; end
+    class WrongTypeError < ValueError; end
+    class MissingAttributeError < ValueError; end
   end
 end

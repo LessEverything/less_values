@@ -28,6 +28,7 @@ class Less::Values::Test < Minitest::Test
 
   def test_we_can_instantiate
     p = Person.new(first_name: 'Eugen', last_name: 'Minciu', single: false, age: 31)
+
     assert_equal 'Eugen', p.first_name
     assert_equal 'Minciu', p.last_name
     assert_equal false, p.single
@@ -36,12 +37,14 @@ class Less::Values::Test < Minitest::Test
 
   def test_question_attr_reader
     p = Person.new(first_name: 'Eugen', last_name: 'Minciu', single: false, age: 31)
+
     assert_equal false, p.single?
   end
 
   def test_with
     p = Person.new(first_name: 'Eugen', last_name: 'Minciu', single: false, age: 31)
     p2 = p.with(age: 32)
+
     assert_equal 32, p2.age
     assert_equal 31, p.age
   end
@@ -65,14 +68,38 @@ class Less::Values::Test < Minitest::Test
 
   def test_with_default
     p = ProbablySinglePerson.new(first_name: 'Eugen', last_name: 'Minciu', age: 31)
+
     assert_equal false, p.single
   end
 
   def test_parsing
     p = Person.parse(first_name: 'Eugen', last_name: 'Minciu', single: '0', age: '31')
+
     assert_equal 'Eugen', p.first_name
     assert_equal 'Minciu', p.last_name
     assert_equal false, p.single
     assert_equal 31, p.age
+  end
+
+  def test_parsing_with_bad_data
+    p = Person.parse(first_name: 'Eugen', single: '0', age: '31')
+
+    assert_equal 'Eugen', p.first_name
+    assert_nil p.last_name
+    assert_equal false, p.single
+    assert_equal 31, p.age
+    refute p.valid?
+  end
+
+  def test_bad_data_cant_be_mistakenly_propagated
+    p = Person.parse(first_name: 'Eugen', single: '0', age: '31')
+
+    refute p.valid?
+    assert_raises Less::Values::MissingAttributeError do
+      p.with(age: 31)
+    end
+
+    p.with(last_name: 'Minciu')
+    pass
   end
 end
