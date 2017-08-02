@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["eugen@lesseverything.com"]
 
   spec.summary       = %q{Simple Ruby Value Types}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.description   = %q{Less Values provides a base class for creating your own immutable value objects.}
+  spec.homepage      = "https://github.com/LessEverything/less_values"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
